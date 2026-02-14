@@ -1,5 +1,6 @@
 package comworkshop.service;
 
+import comworkshop.DTO.UserDTO;
 import comworkshop.domain.User;
 import comworkshop.repository.UserRepository;
 import comworkshop.service.exception.ObjectNotFoundException;
@@ -23,5 +24,13 @@ public class UserService {
     public User findById(String id){
         Optional<User> user = userRepository.findById(id);
         return user.orElseThrow(() -> new ObjectNotFoundException("Error! user not found"));
+    }
+
+    public User fromDTO(UserDTO obj){
+        return new User(obj.getId(), obj.getName(), obj.getEmail());
+    }
+
+    public User insert(User user){
+        return userRepository.save(user);
     }
 }
